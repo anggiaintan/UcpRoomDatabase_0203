@@ -1,0 +1,19 @@
+package com.example.ucp2pam.repository
+
+import com.example.ucp2pam.data.dao.DosenDao
+import com.example.ucp2pam.data.entity.Dosen
+import kotlinx.coroutines.flow.Flow
+
+class LocalRepositoryDosen (
+    private val dosenDao: DosenDao
+) : RepositoryDosen { // Implementasi interface RepositoryDosen
+
+    // Menambahkan data dosen
+    override suspend fun insertDosen(dosen: Dosen) {
+        dosenDao.insertDosen(dosen)
+    }
+
+    // Mengambil semua data dosen
+    override fun getAllDosen(): List<Dosen> {
+        return dosenDao.getAllDosen()
+    }
