@@ -1,4 +1,4 @@
-package com.example.ucp2pam.ui.viewmodel
+package com.example.ucp2pam.ui.viewmodelmk
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel

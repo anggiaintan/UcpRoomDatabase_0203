@@ -1,4 +1,4 @@
-package com.example.ucp2pam.ui.viewmodel
+package com.example.ucp2pam.ui.viewmodeldosen
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
