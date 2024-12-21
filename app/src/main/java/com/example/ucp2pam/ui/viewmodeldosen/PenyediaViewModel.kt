@@ -35,5 +35,5 @@ object PenyediaViewModel {
     }
 }
 
-fun CreationExtras.sisforApp(): SisforApp =
-    (this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY] as SisforApp)
+fun CreationExtras.DosenApp(): DosenApp =
+    (this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY] as DosenApp)

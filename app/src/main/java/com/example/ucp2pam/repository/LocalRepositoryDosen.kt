@@ -14,6 +14,7 @@ class LocalRepositoryDosen (
     }
 
     // Mengambil semua data dosen
-    override fun getAllDosen(): List<Dosen> {
+    override fun getAllDosen(): Flow<List<Dosen>> {
         return dosenDao.getAllDosen()
     }
+}

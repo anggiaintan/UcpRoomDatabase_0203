@@ -8,6 +8,11 @@ import com.example.ucp2pam.ui.viewmodeldosen.DosenViewModel.DosenEvent
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 class DetailDosenViewModel(
@@ -42,14 +47,6 @@ class DetailDosenViewModel(
             started = SharingStarted.WhileSubscribed(2000),
             initialValue = DetailDosenUiState(isLoading = true)
         )
-
-    fun deleteDosen() {
-        detailUiState.value.detailUiEvent.toDosenEntity().let {
-            viewModelScope.launch {
-                repositoryDosen.deleteDosen(it)
-            }
-        }
-    }
 }
 
 data class DetailDosenUiState(
