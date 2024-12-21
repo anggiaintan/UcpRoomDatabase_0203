@@ -4,10 +4,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.ucp2pam.data.entity.MataKuliah
+import com.example.ucp2pam.repository.RepositoryDosen
 import com.example.ucp2pam.repository.RepositoryMataKuliah
 import kotlinx.coroutines.launch
 
-class MataKuliahViewModel(private val repositoryMataKuliah: RepositoryMataKuliah) : ViewModel() {
+class MataKuliahViewModel(private val repositoryMataKuliah: RepositoryMataKuliah, private val repositoryDosen: RepositoryDosen) : ViewModel() {
     var uiState by mutableStateOf(MataKuliahUIState())
 
     // Memperbarui state berdasarkan input pengguna
