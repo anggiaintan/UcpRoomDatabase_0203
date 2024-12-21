@@ -26,3 +26,12 @@ fun MataKuliah.toDetailUiEvent(): MataKuliahEvent {
         dosenPengampu = dosenPengampu
     )
 }
+
+fun MataKuliahEvent.toMataKuliahEntity(): MataKuliah = MataKuliah(
+    kode = kode,
+    nama = nama,
+    sks = sks,
+    semester = semester,
+    jenis = jenis,
+    dosenPengampu = dosenPengampu
+)
