@@ -141,7 +141,7 @@ class MataKuliahViewModel(private val repositoryMataKuliah: RepositoryMataKuliah
     data class MataKuliahEvent(
         val kode: String = "",
         val nama: String = "",
-        val sks: Int = 0,
+        val sks: String = "",
         val semester: Int = 0,
         val jenis: String = "",
         val dosenPengampu: String = ""
@@ -151,7 +151,7 @@ class MataKuliahViewModel(private val repositoryMataKuliah: RepositoryMataKuliah
     fun MataKuliahEvent.toMataKuliahEntity(): MataKuliah = MataKuliah(
         kode = kode,
         nama = nama,
-        sks = sks.toString(),
+        sks = sks,
         semester = semester,
         jenis = jenis,
         dosenPengampu = dosenPengampu
