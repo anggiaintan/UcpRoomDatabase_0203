@@ -1,6 +1,55 @@
 package com.example.ucp2pam.ui.viewmodelmk
+import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.ucp2pam.data.entity.MataKuliah
+import com.example.ucp2pam.repository.RepositoryMataKuliah
 import com.example.ucp2pam.ui.viewmodelmk.MataKuliahViewModel.MataKuliahEvent
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
+
+class DetailMkViewModel(
+    savedStateHandle: SavedStateHandle,
+    private val repositoryMataKuliah: RepositoryMataKuliah,
+) : ViewModel() {
+    private val _kode: String = checkNotNull(savedStateHandle[DestinasiDetailMatkul.KODE])
+
+    val detailUiState: StateFlow<DetailMatkulUiState> = repositoryMataKuliah.getMataKuliah(_kode)
+        .filterNotNull()
+        .map {
+            DetailMatkulUiState(
+                detailUiEvent = it.toDetailUiEvent(),
+                isLoading = false,
+            )
+        }
+        .onStart {
+            emit(DetailMatkulUiState(isLoading = true))
+            delay(500)
+        }
+        .catch {
+            emit(
+                DetailMatkulUiState(
+                    isLoading = false,
+                    isError = true,
+                    errorMessage = it.message ?: "Terjadi Kesalahan",
+                )
+            )
+        }
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(2000),
+            initialValue = DetailMatkulUiState(
+                isLoading = true,
+            ),
+        )
+}
 
 data class DetailMatkulUiState(
     val detailUiEvent: MataKuliahEvent = MataKuliahEvent(),
