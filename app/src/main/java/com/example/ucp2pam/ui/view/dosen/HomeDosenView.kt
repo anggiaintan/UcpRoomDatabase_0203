@@ -90,8 +90,19 @@ fun BodyHomeDosenView(
                 fontWeight = FontWeight.Bold
             )
         }
+
+        Spacer(modifier = Modifier.padding(8.dp))
+
+        when {
+            dosenUiState.isLoading -> LoadingIndicator()
+            dosenUiState.isError -> ErrorMessage()
+            dosenUiState.listDosen.isEmpty() -> EmptyMessage()
+            else -> ListDosen(
+                listDosen = dosenUiState.listDosen,
+                modifier = Modifier.fillMaxSize()
+            )
+        }
     }
-    )
 }
 
 @Composable
