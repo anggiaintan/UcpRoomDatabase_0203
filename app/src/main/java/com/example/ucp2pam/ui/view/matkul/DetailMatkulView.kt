@@ -66,7 +66,7 @@ fun DetailMatkulView(
                 },
                 shape = MaterialTheme.shapes.medium,
                 modifier = Modifier.padding(16.dp),
-                containerColor = colorResource(id = R.color.primary)
+                containerColor = colorResource(id = R.color.teal_700)
             ) {
                 Icon(
                     imageVector = Icons.Default.Edit,
@@ -122,7 +122,7 @@ fun BodyDetailMatkul(
                     },
                     modifier = Modifier.fillMaxWidth(),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor =  colorResource(id = R.color.primary)
+                        containerColor =  colorResource(id = R.color.teal_700)
                     )
                 ) {
                     Icon(
