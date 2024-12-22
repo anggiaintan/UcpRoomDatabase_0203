@@ -9,6 +9,7 @@ import com.example.ucp2pam.repository.RepositoryDosen
 import com.example.ucp2pam.repository.RepositoryMataKuliah
 import com.example.ucp2pam.ui.viewmodelmk.MataKuliahViewModel.MataKuliahUIState
 import com.example.ucp2pam.ui.viewmodelmk.MataKuliahViewModel.MataKuliahEvent
+import com.example.ucp2pam.ui.viewmodelmk.MataKuliahViewModel.FormErrorState
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -62,3 +63,19 @@ class UpdateMkViewModel(
             mataKuliahEvent = mataKuliahEvent
         )
     }
+
+    fun validateFields(): Boolean {
+        val event = updateUIState.mataKuliahEvent
+        val errorState = FormErrorState(
+            kode = if (event.kode.isNotEmpty()) null else "Kode tidak boleh kosong",
+            nama = if (event.nama.isNotEmpty()) null else "Nama tidak boleh kosong",
+            sks = if (event.sks > 0) null else "SKS harus lebih dari 0",
+            semester = if (event.semester > 0) null else "Semester harus lebih dari 0",
+            jenis = if (event.jenis.isNotEmpty()) null else "Jenis tidak boleh kosong",
+            dosenPengampu = if (event.dosenPengampu.isNotEmpty()) null else "Dosen Pengampu tidak boleh kosong"
+        )
+        updateUIState = updateUIState.copy(isEntryValid = errorState)
+        return errorState.isValid()
+
+
+    }    }
