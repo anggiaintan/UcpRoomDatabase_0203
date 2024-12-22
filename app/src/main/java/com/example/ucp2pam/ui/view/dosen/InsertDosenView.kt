@@ -7,7 +7,10 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.RadioButtonDefaults
@@ -41,6 +44,39 @@ object DestinasiInsertDosen : AlamatNavigasi {
     override val route: String = "insert_mhs"
 }
 
+@Composable
+fun InsertBodyDosen(
+    modifier: Modifier = Modifier,
+    onValueChange: (DosenEvent) -> Unit,
+    uiState: DosenUIState,
+    onClick: () -> Unit
+) {
+    Column(
+        modifier = modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        FormDosen(
+            dosenEvent = uiState.dosenEvent,
+            onValueChange = onValueChange,
+            errorState = uiState.isEntryValid,
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        Button(
+            onClick = onClick,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 16.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = colorResource(id = R.color.white),
+                contentColor = Color.White
+            )
+        ) {
+            Text("Simpan")
+        }
+    }
+}
 
 @Composable
 fun FormDosen(
