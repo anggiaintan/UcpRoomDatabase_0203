@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.KeyboardArrowRight
@@ -22,6 +24,27 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.ucp2pam.R
 import com.example.ucp2pam.data.entity.MataKuliah
+
+@Composable
+fun ListMatkul(
+    listMatkul: List<MataKuliah>,
+    modifier: Modifier = Modifier,
+    onClick: (String) -> Unit = { }
+){
+    LazyColumn(
+        modifier = modifier
+    ) {
+        items(
+            items = listMatkul,
+            itemContent = { matkul ->
+                CardMatkul(
+                    matkul = matkul,
+                    onClick = { onClick(matkul.kode) }
+                )
+            }
+        )
+    }
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
