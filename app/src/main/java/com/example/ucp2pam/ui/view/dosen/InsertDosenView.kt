@@ -35,6 +35,7 @@ import com.example.ucp2pam.ui.viewmodeldosen.DosenViewModel
 import com.example.ucp2pam.ui.viewmodeldosen.DosenViewModel.DosenEvent
 import com.example.ucp2pam.ui.viewmodeldosen.DosenViewModel.DosenUIState
 import com.example.ucp2pam.ui.viewmodeldosen.DosenViewModel.FormErrorState
+import com.example.ucp2pam.ui.viewmodeldosen.PenyediaViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -42,6 +43,63 @@ import kotlinx.coroutines.withContext
 
 object DestinasiInsertDosen : AlamatNavigasi {
     override val route: String = "insert_mhs"
+}
+
+@Composable
+fun InsertDosenView(
+    onBack: () -> Unit,
+    onNavigate: () -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: DosenViewModel = viewModel(factory = PenyediaViewModel.Factory)
+) {
+    val uiState = viewModel.uiState
+    val snackbarHostState = remember { SnackbarHostState() }
+    val coroutineScope = rememberCoroutineScope()
+
+    LaunchedEffect(uiState.snackBarMessage) {
+        uiState.snackBarMessage?.let { message ->
+            coroutineScope.launch {
+                snackbarHostState.showSnackbar(message)
+                viewModel.resetSnackBarMessage()
+            }
+        }
+    }
+
+    Scaffold(
+        modifier = modifier,
+        snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
+    ) { innerPadding ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+                .padding(16.dp)
+        ) {
+            CustomTopAppBar(
+                onBack = onBack,
+                showBackButton = true,
+                judul = "Tambah Dosen"
+            )
+
+            InsertBodyDosen(
+                uiState = uiState,
+                onValueChange = { updateEvent ->
+                    viewModel.updateState(updateEvent)
+                },
+                onClick = {
+                    coroutineScope.launch {
+                        if (viewModel.validateFields()) {
+                            viewModel.saveData()
+                            delay(600)
+                            withContext(Dispatchers.Main) {
+                                onNavigate()
+                            }
+                        }
+                    }
+                }
+            )
+        }
+    }
 }
 
 @Composable
