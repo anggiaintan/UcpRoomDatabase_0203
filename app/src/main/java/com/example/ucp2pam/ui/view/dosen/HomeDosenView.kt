@@ -1,5 +1,9 @@
 package com.example.ucp2pam.ui.view.dosen
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
@@ -7,16 +11,21 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.ucp2pam.R
 import com.example.ucp2pam.ui.costumwidget.CustomTopAppBar
 import com.example.ucp2pam.ui.viewmodeldosen.HomeDosenViewModel
+import com.example.ucp2pam.ui.viewmodeldosen.HomeUiState
 import com.example.ucp2pam.ui.viewmodeldosen.PenyediaViewModel
 import java.lang.reflect.Modifier
 
@@ -44,5 +53,33 @@ fun HomeDosenView(
                 )
             }
         }
+    )
+}
+
+@Composable
+fun BodyHomeDosenView(
+    dosenUiState: HomeUiState,
+    modifier: Modifier = Modifier
+) {
+    Column (
+        modifier = modifier
+            .fillMaxSize()
+            .background(color = colorResource(id = R.color.teal_700))
+    ) {
+        Box (
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 16.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = "Universitas Muhammadiyah Yogyakarta",
+                color = Color.Black,
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Bold
+            )
+        }
+
+    }
     )
 }
