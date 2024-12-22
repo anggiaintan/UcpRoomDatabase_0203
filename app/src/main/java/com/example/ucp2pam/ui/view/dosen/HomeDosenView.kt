@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -25,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.ucp2pam.R
+import com.example.ucp2pam.data.entity.Dosen
 import com.example.ucp2pam.ui.costumwidget.CustomTopAppBar
 import com.example.ucp2pam.ui.viewmodeldosen.HomeDosenViewModel
 import com.example.ucp2pam.ui.viewmodeldosen.HomeUiState
@@ -128,5 +130,20 @@ fun EmptyMessage() {
             fontSize = 16.sp,
             fontWeight = FontWeight.Light
         )
+    }
+}
+
+@Composable
+fun ListDosen(
+    listDosen: List<Dosen>,
+    modifier: Modifier = Modifier
+) {
+    LazyColumn (
+        modifier = modifier
+            .padding(horizontal = 16.dp, vertical = 8.dp)
+    ) {
+        items(items = listDosen) { dosen ->
+            ExpandableCardDosen(dosen = dosen)
+        }
     }
 }
