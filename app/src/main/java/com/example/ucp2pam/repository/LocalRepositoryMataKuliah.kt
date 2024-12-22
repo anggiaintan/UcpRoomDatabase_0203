@@ -2,6 +2,7 @@ package com.example.ucp2pam.repository
 
 import com.example.ucp2pam.data.dao.MataKuliahDao
 import com.example.ucp2pam.data.entity.MataKuliah
+import kotlinx.coroutines.flow.Flow
 
 class LocalRepositoryMataKuliah (
     private val mataKuliahDao: MataKuliahDao
@@ -17,6 +18,10 @@ class LocalRepositoryMataKuliah (
         return mataKuliahDao.getAllMataKuliah()
     }
 
+    // Mengambil data mata kuliah berdasarkan kode
+    override fun getMataKuliah(kode: String): Flow<MataKuliah> {
+        return mataKuliahDao.getMataKuliah(kode)
+    }
 
     // Menghapus data mata kuliah
     override suspend fun deleteMataKuliah(mataKuliah: MataKuliah) {
