@@ -49,6 +49,14 @@ class DetailMkViewModel(
                 isLoading = true,
             ),
         )
+
+    fun deleteMatkul() {
+        detailUiState.value.detailUiEvent.toMataKuliahEntity().let {
+            viewModelScope.launch {
+                repositoryMataKuliah.deleteMk(it)
+            }
+        }
+    }
 }
 
 data class DetailMatkulUiState(
