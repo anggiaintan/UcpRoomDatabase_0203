@@ -6,21 +6,22 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import com.example.ucp2pam.data.entity.MataKuliah
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface MataKuliahDao {
     @Insert
     suspend fun insertMataKuliah(mataKuliah: MataKuliah)
 
-    @Query("SELECT * FROM MataKuliah")
-    suspend fun getAllMataKuliah(): List<MataKuliah>
+    @Query("SELECT * FROM MataKuliah ORDER BY nama ASC")
+    fun getAllMataKuliah(): Flow<List<MataKuliah>>
+
+    @Query("SELECT * FROM MataKuliah WHERE kode = :kode")
+    fun getMataKuliah(kode: String): Flow<MataKuliah>
 
     @Update
     suspend fun updateMataKuliah(mataKuliah: MataKuliah)
 
     @Delete
     suspend fun deleteMataKuliah(mataKuliah: MataKuliah)
-
-    @Query("SELECT * FROM MataKuliah WHERE kode = :kode")
-    suspend fun getDetailMataKuliah(kode: Int): MataKuliah
 }
