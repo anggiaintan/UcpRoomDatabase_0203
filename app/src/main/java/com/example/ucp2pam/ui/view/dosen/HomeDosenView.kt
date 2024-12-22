@@ -88,7 +88,6 @@ fun BodyHomeDosenView(
                 fontWeight = FontWeight.Bold
             )
         }
-
     }
     )
 }
@@ -100,5 +99,20 @@ fun LoadingIndicator() {
         contentAlignment = Alignment.Center
     ) {
         CircularProgressIndicator(color = colorResource(id = R.color.white))
+    }
+}
+
+@Composable
+fun ErrorMessage() {
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        Text(
+            text = "Terjadi kesalahan. Silakan coba lagi.",
+            fontSize = 16.sp,
+            fontWeight = FontWeight.Medium,
+            color = Color.Red
+        )
     }
 }
