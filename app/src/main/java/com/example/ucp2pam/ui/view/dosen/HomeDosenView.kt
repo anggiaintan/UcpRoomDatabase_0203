@@ -46,12 +46,12 @@ import com.example.ucp2pam.ui.costumwidget.CustomTopAppBar
 import com.example.ucp2pam.ui.viewmodeldosen.HomeDosenViewModel
 import com.example.ucp2pam.ui.viewmodeldosen.HomeUiState
 import com.example.ucp2pam.ui.viewmodeldosen.PenyediaViewModel
-import java.lang.reflect.Modifier
+import androidx.compose.ui.Modifier
 
 @Composable
 fun HomeDosenView(
     viewModel: HomeDosenViewModel = viewModel(factory = PenyediaViewModel.Factory),
-    onAddDosen: () -> Unit,
+    onAddDosen: () -> Unit = { },
     modifier: Modifier = Modifier
 ) {
     Scaffold (
