@@ -92,12 +92,20 @@ fun BodyHomeDosenView(
             .fillMaxSize()
             .background(color = colorResource(id = R.color.teal_700))
     ) {
-        Box (
+        Row (
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = 16.dp),
-            contentAlignment = Alignment.Center
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
         ) {
+            Image(
+                modifier = Modifier.size(110.dp),
+                painter = painterResource(id = R.drawable.umyhd),
+                contentDescription = "Logo UMY"
+            )
+
+            Spacer(modifier = Modifier.width(8.dp))
             Text(
                 text = "Universitas Muhammadiyah Yogyakarta",
                 color = Color.Black,
