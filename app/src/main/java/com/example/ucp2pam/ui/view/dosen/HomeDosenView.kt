@@ -116,3 +116,17 @@ fun ErrorMessage() {
         )
     }
 }
+
+@Composable
+fun EmptyMessage() {
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        Text(
+            text = "Tidak ada data dosen saat ini.",
+            fontSize = 16.sp,
+            fontWeight = FontWeight.Light
+        )
+    }
+}
