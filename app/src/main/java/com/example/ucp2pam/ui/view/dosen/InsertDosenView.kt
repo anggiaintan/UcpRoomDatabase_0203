@@ -31,6 +31,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.ucp2pam.R
 import com.example.ucp2pam.ui.costumwidget.CustomTopAppBar
+import com.example.ucp2pam.ui.navigation.AlamatNavigasiDosen
 import com.example.ucp2pam.ui.viewmodeldosen.DosenViewModel
 import com.example.ucp2pam.ui.viewmodeldosen.DosenViewModel.DosenEvent
 import com.example.ucp2pam.ui.viewmodeldosen.DosenViewModel.DosenUIState
@@ -41,7 +42,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-object DestinasiInsertDosen : AlamatNavigasi {
+object DestinasiInsertDosen : AlamatNavigasiDosen {
     override val route: String = "insert_mhs"
 }
 
