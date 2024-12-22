@@ -53,7 +53,14 @@ fun HomeDosenView(
                 )
             }
         }
-    )
+    ) {
+            innerPadding ->
+        val dosenUiState by viewModel.homeUiState.collectAsState()
+        BodyHomeDosenView(
+            dosenUiState = dosenUiState,
+            modifier = Modifier.padding(innerPadding)
+        )
+    }
 }
 
 @Composable
