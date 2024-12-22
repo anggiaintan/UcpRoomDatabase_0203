@@ -4,9 +4,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.ucp2pam.data.entity.MataKuliah
 import com.example.ucp2pam.repository.RepositoryDosen
 import com.example.ucp2pam.repository.RepositoryMataKuliah
 import com.example.ucp2pam.ui.viewmodelmk.MataKuliahViewModel.MataKuliahUIState
+import com.example.ucp2pam.ui.viewmodelmk.MataKuliahViewModel.MataKuliahEvent
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -40,4 +42,17 @@ class UpdateMkViewModel(
                 .toUIStateMatkul()
             getDosenList()
         }
+    }
+
+    fun MataKuliah.toUIStateMatkul(): MataKuliahUIState {
+        return MataKuliahUIState(
+            mataKuliahEvent = MataKuliahEvent(
+                kode = this.kode,
+                nama = this.nama,
+                sks = this.sks,
+                semester = this.semester,
+                jenis = this.jenis,
+                dosenPengampu = this.dosenPengampu
+            )
+        )
     }
