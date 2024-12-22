@@ -56,3 +56,9 @@ class UpdateMkViewModel(
             )
         )
     }
+
+    fun updateState (mataKuliahEvent: MataKuliahEvent) {
+        updateUIState = updateUIState.copy(
+            mataKuliahEvent = mataKuliahEvent
+        )
+    }
