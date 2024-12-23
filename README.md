@@ -10,6 +10,8 @@ Halaman mata kuliah:
 ![Screenshot (1115)](https://github.com/user-attachments/assets/5c4c306a-b8b8-43f2-a3d7-3129ebde5b4e)
 Halaman tambah mata kuliah:
 ![Screenshot (1116)](https://github.com/user-attachments/assets/430b5a7c-5164-4b3a-a1fe-f8a1b94a4b4c)
+Dropdown list dosen:
+![Screenshot (1124)](https://github.com/user-attachments/assets/352faf28-cdba-4650-906a-10ce04b4615b)
 Mata kuliah berhasil disimpan:
 ![Screenshot (1117)](https://github.com/user-attachments/assets/dce2a08e-8be1-4884-adb8-5cd7a647d16b)
 Halaman detail mata kuliah:
