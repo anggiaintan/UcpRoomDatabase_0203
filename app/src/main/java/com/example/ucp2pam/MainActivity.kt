@@ -14,7 +14,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.ucp2pam.ui.navigation.PengelolaHlmDosen
 import com.example.ucp2pam.ui.navigation.PengelolaHlmMatkul
 import com.example.ucp2pam.ui.theme.UCP2PAMTheme
-import com.example.ucp2pam.ui.view.HalamanUtama
+import com.example.ucp2pam.ui.view.HlmUtama
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,11 +26,11 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberNavController()
                     NavHost(
                         navController = navController,
-                        startDestination = "Utama",
+                        startDestination = "Dosen",
                         modifier = Modifier.padding(innerPadding) //
                     ) {
                         composable("Utama") {
-                            HalamanUtama(navController)
+                            HlmUtama(navController)
                         }
                         composable("Dosen") {
                             PengelolaHlmDosen()

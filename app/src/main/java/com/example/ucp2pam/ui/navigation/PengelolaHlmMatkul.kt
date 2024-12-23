@@ -27,7 +27,7 @@ fun PengelolaHlmMatkul(
             HomeMatkulView(
                 onDetailClick = { kode ->
                     navController.navigate("${DestinasiDetailMatkul.route}/$kode")
-                    println("PengelolaHalamanMK: kode = $kode")
+                    println("PengelolaHlmMatkul: kode = $kode")
                 },
                 onAddMatkul = {
                     navController.navigate(DestinasiInsertMatkul.route)

@@ -36,7 +36,7 @@ import androidx.navigation.NavController
 import com.example.ucp2pam.R
 
 @Composable
-fun HalamanUtama(navController: NavController, modifier: Modifier = Modifier) {
+fun HlmUtama(navController: NavController, modifier: Modifier = Modifier) {
     Scaffold(
         modifier = modifier,
         content = { innerPadding ->
