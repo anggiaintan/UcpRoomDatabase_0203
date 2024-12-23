@@ -9,6 +9,7 @@ import com.example.ucp2pam.DosenApp
 import com.example.ucp2pam.ui.viewmodelmk.DetailMkViewModel
 import com.example.ucp2pam.ui.viewmodelmk.HomeMkViewModel
 import com.example.ucp2pam.ui.viewmodelmk.MataKuliahViewModel
+import com.example.ucp2pam.ui.viewmodelmk.UpdateMkViewModel
 
 object PenyediaViewModel {
     val Factory = viewModelFactory {
@@ -35,9 +36,17 @@ object PenyediaViewModel {
         }
         initializer {
             DetailMkViewModel(
-                this.createSavedStateHandle(),
+                createSavedStateHandle(),
                 DosenApp().containerApp.repositoryMataKuliah
             )
+        }
+        initializer {
+            UpdateMkViewModel(
+                createSavedStateHandle(),
+                DosenApp().containerApp.repositoryMataKuliah,
+                DosenApp().containerApp.repositoryDosen
+            )
+        }
     }
 }
 
