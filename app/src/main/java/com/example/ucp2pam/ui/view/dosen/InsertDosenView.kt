@@ -43,7 +43,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 object DestinasiInsertDosen : AlamatNavigasiDosen {
-    override val route: String = "insert_mhs"
+    override val route: String = "insert_dosen"
 }
 
 @Composable

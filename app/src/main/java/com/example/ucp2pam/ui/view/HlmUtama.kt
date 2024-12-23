@@ -157,7 +157,7 @@ fun HlmUtama(navController: NavController, modifier: Modifier = Modifier) {
                             // Tombol Matakuliah dengan ikon
                             Button(
                                 onClick = {
-                                    navController.navigate("MataKuliah")
+                                    navController.navigate("Matkul")
                                 },
                                 colors = ButtonDefaults.buttonColors(
                                     containerColor = Color(0xFF9C9F5B),

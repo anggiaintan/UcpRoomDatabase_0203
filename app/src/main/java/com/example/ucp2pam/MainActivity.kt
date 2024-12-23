@@ -33,10 +33,10 @@ class MainActivity : ComponentActivity() {
                             HlmUtama(navController)
                         }
                         composable("Dosen") {
-                            PengelolaHlmDosen()
+                            PengelolaHlmDosen(navController)
                         }
-                        composable("MK") {
-                            PengelolaHlmMatkul()
+                        composable("Matkul") {
+                            PengelolaHlmMatkul(navController)
                         }
                     }
                 }
