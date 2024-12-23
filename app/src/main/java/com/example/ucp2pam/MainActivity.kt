@@ -11,7 +11,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.example.ucp2pam.ui.navigation.PengelolaHlmDosen
+import com.example.ucp2pam.ui.navigation.PengelolaHlmMatkul
 import com.example.ucp2pam.ui.theme.UCP2PAMTheme
+import com.example.ucp2pam.ui.view.HalamanUtama
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,28 +26,24 @@ class MainActivity : ComponentActivity() {
         setContent {
             UCP2PAMTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                    val navController = rememberNavController()
+                    NavHost(
+                        navController = navController,
+                        startDestination = "Utama",
+                        modifier = Modifier.padding(innerPadding) //
+                    ) {
+                        composable("Utama") {
+                            HalamanUtama(navController)
+                        }
+                        composable("Dosen") {
+                            PengelolaHlmDosen()
+                        }
+                        composable("MK") {
+                            PengelolaHlmMatkul()
+                        }
+                    }
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    UCP2PAMTheme {
-        Greeting("Android")
     }
 }
