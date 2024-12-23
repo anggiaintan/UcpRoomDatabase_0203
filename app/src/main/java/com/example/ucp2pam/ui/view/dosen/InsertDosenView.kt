@@ -30,7 +30,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.ucp2pam.R
-import com.example.ucp2pam.ui.costumwidget.CustomTopAppBar
+import com.example.ucp2pam.ui.customwidget.CustomTopAppBar
 import com.example.ucp2pam.ui.navigation.AlamatNavigasiDosen
 import com.example.ucp2pam.ui.viewmodeldosen.DosenViewModel
 import com.example.ucp2pam.ui.viewmodeldosen.DosenViewModel.DosenEvent

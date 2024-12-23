@@ -1,6 +1,7 @@
 package com.example.ucp2pam.ui.viewmodelmk
 
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

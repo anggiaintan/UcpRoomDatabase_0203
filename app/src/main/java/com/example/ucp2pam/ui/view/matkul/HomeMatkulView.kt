@@ -1,5 +1,7 @@
 package com.example.ucp2pam.ui.view.matkul
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

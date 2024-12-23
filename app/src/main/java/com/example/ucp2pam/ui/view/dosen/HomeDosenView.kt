@@ -1,6 +1,5 @@
 package com.example.ucp2pam.ui.view.dosen
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -17,7 +16,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
-import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.res.painterResource
 import androidx.compose.material3.Card
@@ -28,7 +26,6 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
@@ -42,7 +39,6 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.ucp2pam.R
 import com.example.ucp2pam.data.entity.Dosen
-import com.example.ucp2pam.ui.costumwidget.CustomTopAppBar
 import com.example.ucp2pam.ui.viewmodeldosen.HomeDosenViewModel
 import com.example.ucp2pam.ui.viewmodeldosen.HomeUiState
 import com.example.ucp2pam.ui.viewmodeldosen.PenyediaViewModel
