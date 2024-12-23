@@ -6,6 +6,7 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.ucp2pam.DosenApp
+import com.example.ucp2pam.ui.viewmodelmk.HomeMkViewModel
 import com.example.ucp2pam.ui.viewmodelmk.MataKuliahViewModel
 
 object PenyediaViewModel {
@@ -24,6 +25,11 @@ object PenyediaViewModel {
             MataKuliahViewModel(
                 DosenApp().containerApp.repositoryMataKuliah,
                 DosenApp().containerApp.repositoryDosen
+            )
+        }
+        initializer {
+            HomeMkViewModel(
+                DosenApp().containerApp.repositoryMataKuliah
             )
         }
     }
