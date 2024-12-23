@@ -14,7 +14,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.KeyboardArrowRight
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -24,6 +26,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
@@ -44,7 +47,7 @@ fun HlmUtama(navController: NavController, modifier: Modifier = Modifier) {
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(innerPadding)
-                    .background(color = colorResource(id = R.color.purple_700))
+                    .background(color = Color(0xFF8B4513))
             ) {
                 Row(
                     modifier = Modifier
@@ -61,13 +64,14 @@ fun HlmUtama(navController: NavController, modifier: Modifier = Modifier) {
                         Text(
                             text = "Universitas Muhammadiyah Yogyakarta",
                             color = Color.White,
-                            fontSize = 15.sp,
-                            fontWeight = FontWeight.Bold
+                            fontSize = 25.sp,
+                            fontWeight = FontWeight.Bold,
+                            textAlign = TextAlign.Justify
                         )
                         Text(
                             text = "Teknologi Informasi",
                             color = Color.White,
-                            fontWeight = FontWeight.Light
+                            fontWeight = FontWeight.Medium
                         )
                     }
                 }
@@ -83,8 +87,8 @@ fun HlmUtama(navController: NavController, modifier: Modifier = Modifier) {
                             .background(
                                 color = Color.White.copy(alpha = 0.9f),
                                 shape = RoundedCornerShape(
-                                    topEnd = 15.dp,
-                                    topStart = 15.dp
+                                    topEnd = 18.dp,
+                                    topStart = 18.dp
                                 )
                             )
                     ) {
@@ -94,75 +98,95 @@ fun HlmUtama(navController: NavController, modifier: Modifier = Modifier) {
                                 .padding(16.dp),
                             horizontalAlignment = Alignment.CenterHorizontally,
                         ) {
+                            // Judul yang diperbarui
                             Text(
-                                text = "Aplikasi KRS",
+                                text = "Halo! Selamat Datang di Teknologi Informasi",
                                 color = Color.Black,
-                                fontSize = 18.sp,
-                                fontWeight = FontWeight.Bold
+                                fontSize = 20.sp,
+                                fontWeight = FontWeight.Bold,
+                                textAlign = TextAlign.Center,
+                                modifier = Modifier.padding(bottom = 8.dp)
                             )
 
+                            // Subtitle
+                            Text(
+                                text = "Silahkan pilih menu berikut",
+                                color = Color.Black.copy(alpha = 0.7f),
+                                fontSize = 16.sp,
+                                textAlign = TextAlign.Center,
+                                modifier = Modifier.padding(bottom = 24.dp)
+                            )
+
+                            // Tombol Dosen dengan ikon
                             Button(
                                 onClick = {
                                     navController.navigate("Dosen")
                                 },
                                 colors = ButtonDefaults.buttonColors(
-                                    containerColor = Color(0xFF003f5c),
+                                    containerColor = Color(0xFF9C9F5B),
                                     contentColor = Color.White
                                 ),
                                 modifier = Modifier
-                                    .padding(8.dp)
-                                    .height(50.dp)
-                                    .fillMaxWidth(),
+                                    .padding(vertical = 8.dp)
+                                    .height(70.dp)
+                                    .fillMaxWidth()
+                                    .shadow(4.dp, RoundedCornerShape(12.dp)),
                                 shape = RoundedCornerShape(12.dp)
                             ) {
                                 Row(
-                                    horizontalArrangement = Arrangement.SpaceBetween,
+                                    horizontalArrangement = Arrangement.Start,
                                     verticalAlignment = Alignment.CenterVertically,
                                     modifier = Modifier.fillMaxWidth()
                                 ) {
+                                    Icon(
+                                        imageVector = Icons.Default.Person, // Menggunakan ikon Person
+                                        contentDescription = "Ikon Dosen",
+                                        tint = Color.White,
+                                        modifier = Modifier.padding(end = 8.dp)
+                                    )
                                     Text(
                                         text = "Dosen",
-                                        fontSize = 18.sp,
+                                        fontSize = 20.sp,
+                                        fontWeight = FontWeight.Bold,
                                         modifier = Modifier.weight(1f),
-                                        textAlign = TextAlign.Start
-                                    )
-                                    Icon(
-                                        imageVector = Icons.Default.KeyboardArrowRight,
-                                        contentDescription = "Arrow End",
-                                        tint = Color.White
+                                        textAlign = TextAlign.Center
                                     )
                                 }
                             }
 
+                            // Tombol Matakuliah dengan ikon
                             Button(
                                 onClick = {
-                                    navController.navigate("MK")
+                                    navController.navigate("MataKuliah")
                                 },
                                 colors = ButtonDefaults.buttonColors(
-                                    containerColor = Color(0xFF003f5c),
+                                    containerColor = Color(0xFF9C9F5B),
                                     contentColor = Color.White
                                 ),
                                 modifier = Modifier
-                                    .padding(8.dp)
-                                    .height(50.dp)
-                                    .fillMaxWidth(),
+                                    .padding(vertical = 8.dp)
+                                    .height(70.dp)
+                                    .fillMaxWidth()
+                                    .shadow(4.dp, RoundedCornerShape(12.dp)),
                                 shape = RoundedCornerShape(12.dp)
                             ) {
                                 Row(
-                                    horizontalArrangement = Arrangement.SpaceBetween,
+                                    horizontalArrangement = Arrangement.Start,
                                     verticalAlignment = Alignment.CenterVertically,
                                     modifier = Modifier.fillMaxWidth()
                                 ) {
-                                    Text(
-                                        text = "Matakuliah",
-                                        fontSize = 18.sp,
-                                        modifier = Modifier.weight(1f),
-                                        textAlign = TextAlign.Start
-                                    )
                                     Icon(
-                                        imageVector = Icons.Default.KeyboardArrowRight,
-                                        contentDescription = "Arrow End",
-                                        tint = Color.White
+                                        imageVector = Icons.Default.AddCircle, // Menggunakan ikon Book
+                                        contentDescription = "Ikon Matakuliah",
+                                        tint = Color.White,
+                                        modifier = Modifier.padding(end = 8.dp)
+                                    )
+                                    Text(
+                                        text = "Mata Kuliah",
+                                        fontSize = 20.sp,
+                                        fontWeight = FontWeight.Bold,
+                                        modifier = Modifier.weight(1f),
+                                        textAlign = TextAlign.Center
                                     )
                                 }
                             }
