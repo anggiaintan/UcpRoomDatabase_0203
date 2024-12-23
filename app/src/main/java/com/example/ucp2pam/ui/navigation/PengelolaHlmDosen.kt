@@ -6,12 +6,12 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.ucp2pam.ui.view.dosen.DestinasiInsertDosen
+import com.example.ucp2pam.ui.view.dosen.DestinasiInsert
 import com.example.ucp2pam.ui.view.dosen.HomeDosenView
 import com.example.ucp2pam.ui.view.dosen.InsertDosenView
 
 @Composable
-fun PengelolaHlmDosen(
+fun PengelolaHalamanDosen(
     navController: NavHostController = rememberNavController(),
     modifier: Modifier = Modifier
 ) {
@@ -22,14 +22,14 @@ fun PengelolaHlmDosen(
         ) {
             HomeDosenView(
                 onAddDosen = {
-                    navController.navigate(DestinasiInsertDosen.route)
+                    navController.navigate(DestinasiInsert.route)
                 },
                 modifier = modifier
             )
         }
 
         composable(
-            route = DestinasiInsertDosen.route
+            route = DestinasiInsert.route
         ) {
             InsertDosenView(
                 onBack = {

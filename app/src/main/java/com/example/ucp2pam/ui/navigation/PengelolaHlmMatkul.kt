@@ -15,19 +15,20 @@ import com.example.ucp2pam.ui.view.matkul.InsertMatkulView
 import com.example.ucp2pam.ui.view.matkul.UpdateMatkulView
 
 @Composable
-fun PengelolaHlmMatkul(
+fun PengelolaHalamanMK(
     navController: NavHostController = rememberNavController(),
     modifier: Modifier = Modifier
 ) {
     NavHost(navController = navController, startDestination = DestinasiHomeMatkul.route) {
 
+        //Navigasi Home Mata Kuliah
         composable(
             route = DestinasiHomeMatkul.route
         ) {
             HomeMatkulView(
                 onDetailClick = { kode ->
                     navController.navigate("${DestinasiDetailMatkul.route}/$kode")
-                    println("PengelolaHlmMatkul: kode = $kode")
+                    println("PengelolaHalamanMK: kode = $kode")
                 },
                 onAddMatkul = {
                     navController.navigate(DestinasiInsertMatkul.route)
@@ -36,7 +37,7 @@ fun PengelolaHlmMatkul(
             )
         }
 
-        // Insert Mata Kuliah (Course) screen
+        //Navigasi Insert Mata Kuliah
         composable(
             route = DestinasiInsertMatkul.route
         ) {
@@ -51,6 +52,7 @@ fun PengelolaHlmMatkul(
             )
         }
 
+        //Navigasi Detail Mata Kuliah
         composable(
             DestinasiDetailMatkul.routesWithArg,
             arguments = listOf(
@@ -77,6 +79,7 @@ fun PengelolaHlmMatkul(
             }
         }
 
+        //Navigasi Update Mata Kuliah
         composable(
             DestinasiUpdateMatkul.routesWithArg,
             arguments = listOf(

@@ -16,13 +16,13 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
-class DetailMkViewModel(
+class DetailMataKuliahViewModel(
     savedStateHandle: SavedStateHandle,
     private val repositoryMataKuliah: RepositoryMataKuliah,
 ) : ViewModel() {
     private val _kode: String = checkNotNull(savedStateHandle[DestinasiDetailMatkul.KODE])
 
-    val detailUiState: StateFlow<DetailMatkulUiState> = repositoryMataKuliah.getMataKuliah(_kode)
+    val detailUiState: StateFlow<DetailMatkulUiState> = repositoryMataKuliah.getMk(_kode)
         .filterNotNull()
         .map {
             DetailMatkulUiState(
@@ -54,7 +54,7 @@ class DetailMkViewModel(
     fun deleteMatkul() {
         detailUiState.value.detailUiEvent.toMataKuliahEntity().let {
             viewModelScope.launch {
-                repositoryMataKuliah.deleteMataKuliah(it)
+                repositoryMataKuliah.deleteMk(it)
             }
         }
     }
@@ -84,7 +84,7 @@ fun MataKuliah.toDetailUiEvent(): MataKuliahEvent {
         dosenPengampu = dosenPengampu
     )
 }
-
+// Menyimpan input form ke dalam entity
 fun MataKuliahEvent.toMataKuliahEntity(): MataKuliah = MataKuliah(
     kode = kode,
     nama = nama,

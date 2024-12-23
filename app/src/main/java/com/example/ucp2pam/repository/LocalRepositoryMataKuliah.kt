@@ -9,27 +9,27 @@ class LocalRepositoryMataKuliah (
 ) : RepositoryMataKuliah { // Implementasi interface RepositoryMataKuliah
 
     // Menambahkan data mata kuliah
-    override suspend fun insertMataKuliah(mataKuliah: MataKuliah) {
-        mataKuliahDao.insertMataKuliah(mataKuliah)
+    override suspend fun insertMk(mataKuliah: MataKuliah) {
+        mataKuliahDao.insertMatkul(mataKuliah)
     }
 
     // Mengambil semua data mata kuliah
-    override fun getAllMataKuliah(): Flow<List<MataKuliah>> {
-        return mataKuliahDao.getAllMataKuliah()
+    override fun getAllMk(): Flow<List<MataKuliah>> {
+        return mataKuliahDao.getAllMatkul()
     }
 
     // Mengambil data mata kuliah berdasarkan kode
-    override fun getMataKuliah(kode: String): Flow<MataKuliah> {
-        return mataKuliahDao.getMataKuliah(kode)
+    override fun getMk(kode: String): Flow<MataKuliah> {
+        return mataKuliahDao.getMatkul(kode)
     }
 
     // Menghapus data mata kuliah
-    override suspend fun deleteMataKuliah(mataKuliah: MataKuliah) {
-        mataKuliahDao.deleteMataKuliah(mataKuliah)
+    override suspend fun deleteMk(mataKuliah: MataKuliah) {
+        mataKuliahDao.deleteMatkul(mataKuliah)
     }
 
     // Memperbarui data mata kuliah
-    override suspend fun updateMataKuliah(mataKuliah: MataKuliah) {
-        mataKuliahDao.updateMataKuliah(mataKuliah)
+    override suspend fun updateMk(mataKuliah: MataKuliah) {
+        mataKuliahDao.updateMatkul(mataKuliah)
     }
 }

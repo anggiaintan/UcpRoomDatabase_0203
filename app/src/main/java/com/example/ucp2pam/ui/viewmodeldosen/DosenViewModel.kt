@@ -9,28 +9,30 @@ import com.example.ucp2pam.data.entity.Dosen
 import com.example.ucp2pam.repository.RepositoryDosen
 import kotlinx.coroutines.launch
 
-class DosenViewModel(private val repositoryDosen: RepositoryDosen) : ViewModel() {
+class DosenViewModel (private val repositoryDosen: RepositoryDosen) : ViewModel()
+{
     var uiState by mutableStateOf(DosenUIState())
+    // Memperbarui state berdasarkan inputan
 
-    // Memperbarui state berdasarkan input pengguna
     fun updateState(dosenEvent: DosenEvent) {
         uiState = uiState.copy(
             dosenEvent = dosenEvent
         )
     }
-
     // Validasi data input pengguna
     fun validateFields(): Boolean {
         val event = uiState.dosenEvent
         val errorState = FormErrorState(
             nidn = if (event.nidn.isNotEmpty()) null else "NIDN tidak boleh kosong",
             nama = if (event.nama.isNotEmpty()) null else "Nama tidak boleh kosong",
-            jenisKelamin = if (event.jenisKelamin.isNotEmpty()) null else "Jenis Kelamin tidak boleh kosong"
+            jenisKelamin = if (event.jenisKelamin.isNotEmpty()) null else "Jenis Kelamin tidak boleh kosong",
         )
+
         uiState = uiState.copy(isEntryValid = errorState)
         return errorState.isValid()
     }
 
+    // Menyimpan data ke repository
     fun saveData() {
         val currentEvent = uiState.dosenEvent
         if (validateFields()) {
@@ -49,24 +51,30 @@ class DosenViewModel(private val repositoryDosen: RepositoryDosen) : ViewModel()
                 }
             }
         } else {
-            uiState =
-                uiState.copy(snackBarMessage = "Input tidak valid. Periksa kembali data Anda.")
+            uiState = uiState.copy(
+                snackBarMessage = "Input tidak valid. Periksa kembali data Anda."
+            )
         }
     }
 
+
     // Reset pesan Snackbar setelah ditampilkan
     fun resetSnackBarMessage() {
-        uiState = uiState.copy(snackBarMessage = null)
+        uiState = uiState.copy(
+            snackBarMessage = null
+        )
     }
 
-    // UI State
+
+
+    //membuat data class untuk membungkus data class lainnya
     data class DosenUIState(
         val dosenEvent: DosenEvent = DosenEvent(),
         val isEntryValid: FormErrorState = FormErrorState(),
-        val snackBarMessage: String? = null,
+        val snackBarMessage: String? = null
+
     )
 
-    // Form Error State
     data class FormErrorState(
         val nidn: String? = null,
         val nama: String? = null,
@@ -76,15 +84,14 @@ class DosenViewModel(private val repositoryDosen: RepositoryDosen) : ViewModel()
             return nidn == null && nama == null && jenisKelamin == null
         }
     }
-
-    // Event class untuk menyimpan data dari input form
+    // Data class untuk menyimpan data input form
     data class DosenEvent(
         val nidn: String = "",
         val nama: String = "",
         val jenisKelamin: String = ""
     )
 
-    // Konversi input form ke entity Dosen
+    // Menyimpan input form ke dalam entity
     fun DosenEvent.toDosenEntity(): Dosen = Dosen(
         nidn = nidn,
         nama = nama,

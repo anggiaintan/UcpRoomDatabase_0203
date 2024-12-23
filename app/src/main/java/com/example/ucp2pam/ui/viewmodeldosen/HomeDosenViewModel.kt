@@ -18,10 +18,12 @@ class HomeDosenViewModel(
 ) : ViewModel() {
     val homeUiState: StateFlow<HomeUiState> = repositoryDosen.getAllDosen()
         .filterNotNull()
-        .map { HomeUiState(
-            listDosen = it.toList(),
-            isLoading = false,
-        ) }
+        .map {
+            HomeUiState(
+                listDosen = it.toList(),
+                isLoading = false,
+            )
+        }
         .onStart {
             emit(HomeUiState(isLoading = true))
             delay(900)
@@ -31,17 +33,18 @@ class HomeDosenViewModel(
                 HomeUiState(
                     isLoading = false,
                     isError = true,
-                    errorMessage = it.message ?: "Terjadi kesalahan"
+                    errorMessage = it.message ?: "Terjadi Kesalahan"
                 )
             )
         }
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),
-            initialValue = HomeUiState(isLoading = true,)
+            initialValue = HomeUiState(
+                isLoading = true,
+            )
         )
 }
-
 data class HomeUiState(
     val listDosen: List<Dosen> = listOf(),
     val isLoading: Boolean = false,

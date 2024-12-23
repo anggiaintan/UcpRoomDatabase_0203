@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.ucp2pam.ui.customwidget.CustomTopAppBar
 import com.example.ucp2pam.ui.viewmodeldosen.PenyediaViewModel
-import com.example.ucp2pam.ui.viewmodelmk.UpdateMkViewModel
+import com.example.ucp2pam.ui.viewmodelmk.UpdateMatkulViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -27,7 +27,7 @@ fun UpdateMatkulView(
     onBack: () -> Unit,
     onNavigate: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: UpdateMkViewModel = viewModel(factory = PenyediaViewModel.Factory)
+    viewModel: UpdateMatkulViewModel = viewModel(factory = PenyediaViewModel.Factory)
 ) {
     val uiState = viewModel.updateUIState
     val dosenList = viewModel.dosenList // Memastikan data dosen sudah terisi
@@ -39,7 +39,7 @@ fun UpdateMatkulView(
         viewModel.getDosenList()
     }
 
-
+    // Observe snackbar messages
     LaunchedEffect(uiState.snackBarMessage) {
         uiState.snackBarMessage?.let { message ->
             coroutineScope.launch {

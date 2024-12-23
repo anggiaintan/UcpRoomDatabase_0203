@@ -5,6 +5,10 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -22,10 +26,10 @@ fun CustomTopAppBar(
     modifier: Modifier = Modifier
 ) {
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
-            .padding(16.dp),
-        contentAlignment = Alignment.Center // Pastikan konten di tengah
+            .statusBarsPadding(),
+        contentAlignment = Alignment.Center
     ) {
         if (showBackButton) {
             Row(
@@ -36,13 +40,16 @@ fun CustomTopAppBar(
                     onClick = onBack,
                     modifier = Modifier.align(Alignment.CenterVertically)
                 ) {
-                    Text("Kembali")
+                    Icon(
+                        imageVector = Icons.Default.ArrowBack,
+                        contentDescription = "Kembali",
+                    )
                 }
                 Spacer(modifier = Modifier.weight(2f))
             }
         }
 
-        // Teks judul
+
         Text(
             text = judul,
             fontSize = 25.sp,

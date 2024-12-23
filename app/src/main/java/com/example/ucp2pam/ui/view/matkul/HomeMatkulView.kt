@@ -19,8 +19,13 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.KeyboardArrowRight
+import androidx.compose.material.icons.filled.MailOutline
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -42,6 +47,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -49,12 +55,12 @@ import com.example.ucp2pam.R
 import com.example.ucp2pam.data.entity.MataKuliah
 import com.example.ucp2pam.ui.viewmodeldosen.PenyediaViewModel
 import com.example.ucp2pam.ui.viewmodelmk.HomeMatkulUiState
-import com.example.ucp2pam.ui.viewmodelmk.HomeMkViewModel
+import com.example.ucp2pam.ui.viewmodelmk.HomeMatkulViewModel
 import kotlinx.coroutines.launch
 
 @Composable
 fun HomeMatkulView(
-    viewModel: HomeMkViewModel = viewModel(factory = PenyediaViewModel.Factory),
+    viewModel: HomeMatkulViewModel = viewModel(factory = PenyediaViewModel.Factory),
     onAddMatkul: () -> Unit = { },
     onDetailClick: (String) -> Unit = { },
     modifier: Modifier = Modifier
@@ -65,7 +71,7 @@ fun HomeMatkulView(
                 onClick = onAddMatkul,
                 shape = MaterialTheme.shapes.medium,
                 modifier = Modifier.padding(16.dp),
-                containerColor = colorResource(id = R.color.purple_200)
+                containerColor = Color(0xFF9C9F5B)
             ) {
                 Icon(
                     imageVector = Icons.Default.Add,
@@ -87,6 +93,7 @@ fun HomeMatkulView(
     }
 }
 
+
 @Composable
 fun BodyHomeMatkulView(
     homeUiState: HomeMatkulUiState,
@@ -94,11 +101,7 @@ fun BodyHomeMatkulView(
     modifier: Modifier = Modifier
 ){
     Column(modifier = modifier.fillMaxSize()
-        .background(
-            color = colorResource(
-                id = R.color.purple_200
-            )
-        )){
+        .background(color = Color(0xFF8B4513))){
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -115,13 +118,14 @@ fun BodyHomeMatkulView(
                 Text(
                     text = "Universitas Muhammadiyah Yogyakarta",
                     color = Color.White,
-                    fontSize = 15.sp,
-                    fontWeight = FontWeight.Bold
+                    fontSize = 25.sp,
+                    fontWeight = FontWeight.Bold,
+                    textAlign = TextAlign.Justify
                 )
                 Text(
                     text = "Teknologi Informasi",
                     color = Color.White,
-                    fontWeight = FontWeight.Light
+                    fontWeight = FontWeight.Medium
                 )
             }
         }
@@ -130,12 +134,10 @@ fun BodyHomeMatkulView(
             modifier = Modifier
                 .fillMaxSize()
                 .background(
-                    color = colorResource(
-                        id = R.color.teal_700
-                    ),
+                    color = Color.White.copy(alpha = 0.9f),
                     shape = RoundedCornerShape(
-                        topEnd = 15.dp,
-                        topStart = 15.dp
+                        topEnd = 18.dp,
+                        topStart = 18.dp
                     )
                 )
         ){
@@ -192,6 +194,7 @@ fun BodyHomeMatkulView(
 
 }
 
+
 @Composable
 fun ListMatkul(
     listMatkul: List<MataKuliah>,
@@ -213,7 +216,7 @@ fun ListMatkul(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
+
 @Composable
 fun CardMatkul(
     matkul: MataKuliah,
@@ -226,7 +229,7 @@ fun CardMatkul(
             .fillMaxWidth()
             .padding(8.dp),
         colors = CardDefaults.cardColors(
-            containerColor = colorResource(id = R.color.black),
+            containerColor = Color(0xFF9C9F5B),
             contentColor = colorResource(id = R.color.white)
         )
     ) {
@@ -249,7 +252,7 @@ fun CardMatkul(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ){
-                Icon(imageVector = Icons.Filled.KeyboardArrowRight, contentDescription = "")
+                Icon(imageVector = Icons.Filled.MailOutline, contentDescription = "")
                 Spacer(modifier = Modifier.padding(4.dp))
                 Text(
                     text = matkul.nama,
@@ -262,7 +265,7 @@ fun CardMatkul(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Icon(imageVector = Icons.Filled.KeyboardArrowRight, contentDescription = "")
+                Icon(imageVector = Icons.Filled.DateRange, contentDescription = "")
                 Spacer(modifier = Modifier.padding(4.dp))
                 Text(
                     text = "${matkul.sks} SKS",
@@ -273,23 +276,10 @@ fun CardMatkul(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ){
-                Icon(imageVector = Icons.Filled.KeyboardArrowRight, contentDescription = "")
+                Icon(imageVector = Icons.Filled.Star, contentDescription = "")
                 Spacer(modifier = Modifier.padding(4.dp))
                 Text(
                     text = "Semester : ${matkul.semester}",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 16.sp
-                )
-            }
-
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Icon(imageVector = Icons.Filled.KeyboardArrowRight, contentDescription = "")
-                Spacer(modifier = Modifier.padding(4.dp))
-                Text(
-                    text = "Jenis : ${matkul.jenis}", // Menampilkan jenis mata kuliah
                     fontWeight = FontWeight.Bold,
                     fontSize = 16.sp
                 )
@@ -298,10 +288,22 @@ fun CardMatkul(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ){
-                Icon(imageVector = Icons.Filled.KeyboardArrowRight, contentDescription = "")
+                Icon(imageVector = Icons.Filled.Check, contentDescription = "")
                 Spacer(modifier = Modifier.padding(4.dp))
                 Text(
-                    text = "DosenPengampu : ${matkul.dosenPengampu}",
+                    text = "Jenis : ${matkul.jenis}",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 16.sp
+                )
+            }
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ){
+                Icon(imageVector = Icons.Filled.Person, contentDescription = "")
+                Spacer(modifier = Modifier.padding(4.dp))
+                Text(
+                    text = "Pengampu : ${matkul.dosenPengampu}",
                     fontWeight = FontWeight.Bold,
                     fontSize = 16.sp
                 )

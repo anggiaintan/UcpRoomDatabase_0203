@@ -1,5 +1,6 @@
 package com.example.ucp2pam.ui.view.dosen
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -16,15 +17,20 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.KeyboardArrowUp
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.*
 import androidx.compose.ui.res.painterResource
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CardDefaults.cardColors
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -44,30 +50,30 @@ import com.example.ucp2pam.ui.viewmodeldosen.HomeDosenViewModel
 import com.example.ucp2pam.ui.viewmodeldosen.HomeUiState
 import com.example.ucp2pam.ui.viewmodeldosen.PenyediaViewModel
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 
 @Composable
 fun HomeDosenView(
     viewModel: HomeDosenViewModel = viewModel(factory = PenyediaViewModel.Factory),
-    onAddDosen: () -> Unit = { },
+    onAddDosen: () -> Unit = { }, // Fungsi untuk menambahkan dosen baru
     modifier: Modifier = Modifier
 ) {
-    Scaffold (
+    Scaffold(
         floatingActionButton = {
             FloatingActionButton(
-                onClick = onAddDosen,
-                shape = CircleShape,
+                onClick = onAddDosen, // Panggil fungsi untuk menambahkan dosen baru
+                shape = MaterialTheme.shapes.medium,
                 modifier = Modifier.padding(16.dp),
-                containerColor = colorResource(id = R.color.white)
+                containerColor = Color(0xFF9C9F5B)
             ) {
                 Icon(
                     imageVector = Icons.Default.Add,
-                    tint = Color.Gray,
+                    tint = colorResource(id = R.color.white),
                     contentDescription = "Tambah Dosen"
                 )
             }
         }
-    ) {
-            innerPadding ->
+    ) { innerPadding ->
         val dosenUiState by viewModel.homeUiState.collectAsState()
         BodyHomeDosenView(
             dosenUiState = dosenUiState,
@@ -80,156 +86,186 @@ fun HomeDosenView(
 fun BodyHomeDosenView(
     dosenUiState: HomeUiState,
     modifier: Modifier = Modifier
+
 ) {
-    Column (
-        modifier = modifier
-            .fillMaxSize()
-            .background(color = colorResource(id = R.color.teal_700))
-    ) {
-        Row (
+    Column(modifier = modifier
+        .fillMaxSize()
+        .background(color = Color(0xFF8B4513))) {
+        Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(vertical = 16.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
+                .padding(8.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
             Image(
                 modifier = Modifier.size(110.dp),
                 painter = painterResource(id = R.drawable.umyhd),
                 contentDescription = "Logo UMY"
             )
-
-            Spacer(modifier = Modifier.width(8.dp))
+            Spacer(modifier = Modifier.width(20.dp))
             Column {
                 Text(
                     text = "Universitas Muhammadiyah Yogyakarta",
-                    color = Color.Black,
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.Bold
+                    color = Color.White,
+                    fontSize = 25.sp,
+                    fontWeight = FontWeight.Bold,
+                    textAlign = TextAlign.Justify
                 )
                 Text(
                     text = "Teknologi Informasi",
-                    color = Color.White, fontWeight = FontWeight.Light
+                    color = Color.White,
+                    fontWeight = FontWeight.Medium
                 )
             }
         }
-        Spacer(modifier = Modifier.padding(8.dp))
-Box(
-    modifier = Modifier
-        .fillMaxSize()
-        .background(
-            color = colorResource(id = R.color.teal_700),
-            shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp)
-        )
-){
-        when {
-            dosenUiState.isLoading -> {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    CircularProgressIndicator()
+
+        Spacer(modifier = Modifier.height(16.dp))
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(
+                    color = Color.White.copy(alpha = 0.9f),
+                    shape = RoundedCornerShape(
+                        topEnd = 18.dp,
+                        topStart = 18.dp
+                    )
+                )
+        ){
+            when {
+                dosenUiState.isLoading -> {
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        CircularProgressIndicator()
+                    }
                 }
-
-            }
-
-            dosenUiState.isError -> {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(
-                        text = "Terjadi kesalahan. Silakan coba lagi.",
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.Bold
+                dosenUiState.isError -> {
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(
+                            text = "Terjadi kesalahan.",
+                            fontSize = 18.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+                }
+                dosenUiState.listDosen.isEmpty() -> {
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(
+                            text = "Tidak ada data dosen.",
+                            fontSize = 18.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+                }
+                else -> {
+                    ListDosen(
+                        listDosen = dosenUiState.listDosen,
+                        modifier = Modifier.fillMaxSize()
                     )
                 }
             }
-
-            dosenUiState.listDosen.isEmpty() -> {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(
-                        text = "Tidak ada data dosen saat ini.",
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                }
-            }
-
-            else -> {
-                ListDosen(listDosen = dosenUiState.listDosen, modifier = Modifier.fillMaxSize())
-            }
-        }
         }
     }
 }
+
 
 @Composable
 fun ListDosen(
     listDosen: List<Dosen>,
     modifier: Modifier = Modifier
 ) {
-    LazyColumn (
+    LazyColumn(
         modifier = modifier
-            .padding(horizontal = 16.dp, vertical = 8.dp)
     ) {
-        items(items = listDosen) { dosen ->
-            ExpandableCardDosen(dosen = dosen)
-        }
+        items(
+            items = listDosen,
+            itemContent = { dosen ->
+                ExpandableCardDosen(dosen = dosen)
+            }
+        )
     }
 }
-
 
 @Composable
 fun ExpandableCardDosen(
     dosen: Dosen,
     modifier: Modifier = Modifier
 ) {
-    var isExpanded by remember { mutableStateOf(false) }
+    val cardBackgroundColor = Color(0xFF9C9F5B)
+
     Card(
-        onClick = { isExpanded = !isExpanded },
         modifier = modifier
             .fillMaxWidth()
-            .padding(vertical = 8.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = colorResource(id = R.color.white)
+            .padding(8.dp),
+        colors = cardColors(
+            containerColor = cardBackgroundColor
         )
     ) {
         Column(
-            modifier = Modifier.padding(16.dp)) {
+            modifier = Modifier.padding(16.dp)
+        ) {
             Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 8.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
+                Icon(
+                    imageVector = Icons.Default.Person, // Ikon untuk nama
+                    contentDescription = "Nama",
+                    tint = Color.White,
+                    modifier = Modifier.padding(end = 8.dp)
+                )
                 Text(
                     text = dosen.nama,
                     fontWeight = FontWeight.Bold,
-                    fontSize = 18.sp,
-                    modifier = Modifier.weight(1f),
-                    color = colorResource(id = R.color.black))
-                Icon(
-                    imageVector = if (isExpanded) Icons.Default.KeyboardArrowUp else Icons.Default.ArrowDropDown,
-                    contentDescription = null,
-                    tint = colorResource(id = R.color.white)
+                    fontSize = 20.sp,
+                    color = Color.White,
+                    modifier = Modifier.weight(1f)
                 )
             }
-            if (isExpanded) {
-                Spacer(modifier = Modifier.height(8.dp))
-                Column {
-                    Text(
-                        text = "NIDN: ${dosen.nidn}",
-                        fontSize = 14.sp,
-                        color = Color.Gray
-                    )
-                    Spacer(modifier = Modifier.height(4.dp))
-                    Text(
-                        text = "Jenis Kelamin: ${dosen.jenisKelamin}",
-                        fontSize = 14.sp,
-                        color = Color.Gray
-                    )
-                }
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 8.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    imageVector = Icons.Default.DateRange, // Ikon untuk NIDN
+                    contentDescription = "NIDN",
+                    tint = Color.White,
+                    modifier = Modifier.padding(end = 8.dp)
+                )
+                Text(
+                    text = "NIDN: ${dosen.nidn}",
+                    fontWeight = FontWeight.Medium,
+                    fontSize = 16.sp,
+                    color = Color.White
+                )
+            }
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Face, // Ikon untuk jenis kelamin
+                    contentDescription = "Jenis Kelamin",
+                    tint = Color.White,
+                    modifier = Modifier.padding(end = 8.dp)
+                )
+                Text(
+                    text = "Jenis Kelamin: ${dosen.jenisKelamin}",
+                    fontWeight = FontWeight.Medium,
+                    fontSize = 16.sp,
+                    color = Color.White
+                )
             }
         }
     }

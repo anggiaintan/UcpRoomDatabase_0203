@@ -11,17 +11,17 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface MataKuliahDao {
     @Insert
-    suspend fun insertMataKuliah(mataKuliah: MataKuliah)
+    suspend fun insertMatkul(mataKuliah: MataKuliah)
 
-    @Query("SELECT * FROM MataKuliah ORDER BY nama ASC")
-    fun getAllMataKuliah(): Flow<List<MataKuliah>>
+    @Query("SELECT * FROM mataKuliah ORDER BY nama ASC")
+    fun getAllMatkul(): Flow<List<MataKuliah>>
 
-    @Query("SELECT * FROM MataKuliah WHERE kode = :kode")
-    fun getMataKuliah(kode: String): Flow<MataKuliah>
-
-    @Update
-    suspend fun updateMataKuliah(mataKuliah: MataKuliah)
+    @Query("SELECT * FROM mataKuliah WHERE kode = :kode ")
+    fun  getMatkul(kode: String): Flow<MataKuliah>
 
     @Delete
-    suspend fun deleteMataKuliah(mataKuliah: MataKuliah)
+    suspend fun deleteMatkul(mataKuliah: MataKuliah)
+
+    @Update
+    suspend fun updateMatkul(mataKuliah: MataKuliah)
 }

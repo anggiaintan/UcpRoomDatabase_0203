@@ -31,7 +31,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.ucp2pam.R
 import com.example.ucp2pam.ui.customwidget.CustomTopAppBar
-import com.example.ucp2pam.ui.navigation.AlamatNavigasiDosen
+import com.example.ucp2pam.ui.navigation.AlamatNavigasi
 import com.example.ucp2pam.ui.viewmodeldosen.DosenViewModel
 import com.example.ucp2pam.ui.viewmodeldosen.DosenViewModel.DosenEvent
 import com.example.ucp2pam.ui.viewmodeldosen.DosenViewModel.DosenUIState
@@ -42,10 +42,9 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-object DestinasiInsertDosen : AlamatNavigasiDosen {
-    override val route: String = "insert_dosen"
+object DestinasiInsert : AlamatNavigasi {
+    override val route: String = "insert_mhs"
 }
-
 @Composable
 fun InsertDosenView(
     onBack: () -> Unit,
@@ -53,10 +52,11 @@ fun InsertDosenView(
     modifier: Modifier = Modifier,
     viewModel: DosenViewModel = viewModel(factory = PenyediaViewModel.Factory)
 ) {
-    val uiState = viewModel.uiState
+    val uiState = viewModel.uiState // Ambil UI state dari ViewModel
     val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
 
+    // Observasi perubahan snackbarMessage
     LaunchedEffect(uiState.snackBarMessage) {
         uiState.snackBarMessage?.let { message ->
             coroutineScope.launch {
@@ -82,6 +82,7 @@ fun InsertDosenView(
                 judul = "Tambah Dosen"
             )
 
+            // Isi Body
             InsertBodyDosen(
                 uiState = uiState,
                 onValueChange = { updateEvent ->
@@ -128,7 +129,7 @@ fun InsertBodyDosen(
                 .fillMaxWidth()
                 .padding(top = 16.dp),
             colors = ButtonDefaults.buttonColors(
-                containerColor = colorResource(id = R.color.white),
+                containerColor = Color(0xFF9C9F5B),
                 contentColor = Color.White
             )
         ) {
@@ -193,8 +194,8 @@ fun FormDosen(
                             onValueChange(dosenEvent.copy(jenisKelamin = jk))
                         },
                         colors = RadioButtonDefaults.colors(
-                            selectedColor = colorResource(id = R.color.black),
-                            unselectedColor = colorResource(id = R.color.white)
+                            selectedColor = Color(0xFF9C9F5B),
+                            unselectedColor = Color(0xFF8B4513)
                         )
                     )
                     Text(

@@ -38,14 +38,14 @@ import com.example.ucp2pam.R
 import com.example.ucp2pam.data.entity.MataKuliah
 import com.example.ucp2pam.ui.customwidget.CustomTopAppBar
 import com.example.ucp2pam.ui.viewmodeldosen.PenyediaViewModel
+import com.example.ucp2pam.ui.viewmodelmk.DetailMataKuliahViewModel
 import com.example.ucp2pam.ui.viewmodelmk.DetailMatkulUiState
-import com.example.ucp2pam.ui.viewmodelmk.DetailMkViewModel
 import com.example.ucp2pam.ui.viewmodelmk.toMataKuliahEntity
 
 @Composable
 fun DetailMatkulView(
     modifier: Modifier = Modifier,
-    viewModel: DetailMkViewModel = viewModel(factory = PenyediaViewModel.Factory),
+    viewModel: DetailMataKuliahViewModel = viewModel(factory = PenyediaViewModel.Factory),
     onBack: () -> Unit = { },
     onDeleteClick: () -> Unit = { },
     onEditClick: (String) -> Unit = {}
@@ -66,7 +66,7 @@ fun DetailMatkulView(
                 },
                 shape = MaterialTheme.shapes.medium,
                 modifier = Modifier.padding(16.dp),
-                containerColor = colorResource(id = R.color.teal_700)
+                containerColor = Color(0xFF9C9F5B)
             ) {
                 Icon(
                     imageVector = Icons.Default.Edit,
@@ -87,6 +87,7 @@ fun DetailMatkulView(
         )
     }
 }
+
 
 @Composable
 fun BodyDetailMatkul(
@@ -122,7 +123,8 @@ fun BodyDetailMatkul(
                     },
                     modifier = Modifier.fillMaxWidth(),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor =  colorResource(id = R.color.teal_700)
+                        containerColor = Color(0xFF9C9F5B),
+                        contentColor = Color.White
                     )
                 ) {
                     Icon(
@@ -132,7 +134,7 @@ fun BodyDetailMatkul(
                 }
 
                 if (deleteConfirmationRequired) {
-                    DeleteConfirmationDialogMatkul(
+                    DeleteConfirmationDialogMK(
                         onDeleteConfirm = {
                             deleteConfirmationRequired = false
                             onDeleteClick()
@@ -167,7 +169,7 @@ fun ItemDetailMatkul(
         modifier = modifier
             .fillMaxWidth(),
         colors = CardDefaults.cardColors(
-            containerColor = colorResource(id = R.color.black),
+            containerColor = Color(0xFF9C9F5B),
             contentColor = colorResource(id = R.color.white)
         )
     ) {
@@ -195,12 +197,13 @@ fun ItemDetailMatkul(
     }
 }
 
+
 @Composable
 fun ComponentDetailMatkul(
     modifier: Modifier = Modifier,
     judul: String,
     isinya: String
-) {
+){
     Column(
         modifier = modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.Start
@@ -220,7 +223,7 @@ fun ComponentDetailMatkul(
 }
 
 @Composable
-private fun DeleteConfirmationDialogMatkul(
+private fun DeleteConfirmationDialogMK(
     onDeleteConfirm: () -> Unit,
     onDeleteCancel: () -> Unit,
     modifier: Modifier = Modifier
@@ -228,16 +231,16 @@ private fun DeleteConfirmationDialogMatkul(
     AlertDialog(
         onDismissRequest = { /* Do nothing */ },
         title = { Text("Delete Data") },
-        text = { Text("Apakah Anda yakin ingin menghapus data?") },
+        text = { Text("Apakah anda yakin ingin menghapus data?") },
         modifier = modifier,
         dismissButton = {
             TextButton(onClick = onDeleteCancel) {
-                Text(text = "Tidak")
+                Text(text = "Cancel")
             }
         },
         confirmButton = {
             TextButton(onClick = onDeleteConfirm) {
-                Text(text = "Ya")
+                Text(text = "Yes")
             }
         }
     )

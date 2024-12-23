@@ -13,10 +13,10 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 
-class HomeMkViewModel(
+class HomeMatkulViewModel(
     private val repositoryMataKuliah: RepositoryMataKuliah
 ) : ViewModel() {
-    val homeUiState: StateFlow<HomeMatkulUiState> = repositoryMataKuliah.getAllMataKuliah()
+    val homeUiState: StateFlow<HomeMatkulUiState> = repositoryMataKuliah.getAllMk()
         .filterNotNull()
         .map {
             HomeMatkulUiState(

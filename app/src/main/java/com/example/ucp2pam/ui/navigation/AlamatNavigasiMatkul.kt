@@ -1,19 +1,21 @@
 package com.example.ucp2pam.ui.navigation
 
-interface AlamatNavigasiMatkul {
-    val route : String
+
+interface AlamatNavigasiMK {
+    val route: String
 }
-object DestinasiHomeMatkul : AlamatNavigasiMatkul {
+
+object DestinasiHomeMatkul : AlamatNavigasiMK {
     override val route = "homeMatkul"
 }
 
-object DestinasiDetailMatkul : AlamatNavigasiMatkul {
+object DestinasiDetailMatkul : AlamatNavigasiMK {
     override val route = "detailMatkul"
     const val KODE = "kode"
     val routesWithArg = "$route/{$KODE}"
 }
 
-object DestinasiUpdateMatkul : AlamatNavigasiMatkul {
+object DestinasiUpdateMatkul : AlamatNavigasiMK {
     override val route = "updateMatkul"
     const val KODE = "kode"
     val routesWithArg = "$route/{$KODE}"

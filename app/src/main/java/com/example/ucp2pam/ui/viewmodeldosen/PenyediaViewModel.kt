@@ -6,49 +6,49 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.ucp2pam.DosenApp
-import com.example.ucp2pam.ui.viewmodelmk.DetailMkViewModel
-import com.example.ucp2pam.ui.viewmodelmk.HomeMkViewModel
+import com.example.ucp2pam.ui.viewmodelmk.DetailMataKuliahViewModel
+import com.example.ucp2pam.ui.viewmodelmk.HomeMatkulViewModel
 import com.example.ucp2pam.ui.viewmodelmk.MataKuliahViewModel
-import com.example.ucp2pam.ui.viewmodelmk.UpdateMkViewModel
+import com.example.ucp2pam.ui.viewmodelmk.UpdateMatkulViewModel
 
 object PenyediaViewModel {
     val Factory = viewModelFactory {
         initializer {
             DosenViewModel(
-                DosenApp().containerApp.repositoryDosen
+                sisforApp().containerApp.repositoryDosen
             )
         }
         initializer {
             HomeDosenViewModel(
-                DosenApp().containerApp.repositoryDosen
+                sisforApp().containerApp.repositoryDosen
             )
         }
         initializer {
             MataKuliahViewModel(
-                DosenApp().containerApp.repositoryMataKuliah,
-                DosenApp().containerApp.repositoryDosen
+                sisforApp().containerApp.repositoryMataKuliah,
+                sisforApp().containerApp.repositoryDosen
             )
         }
         initializer {
-            HomeMkViewModel(
-                DosenApp().containerApp.repositoryMataKuliah
+            HomeMatkulViewModel(
+                sisforApp().containerApp.repositoryMataKuliah
             )
         }
         initializer {
-            DetailMkViewModel(
+            DetailMataKuliahViewModel(
                 createSavedStateHandle(),
-                DosenApp().containerApp.repositoryMataKuliah
+                sisforApp().containerApp.repositoryMataKuliah
             )
         }
         initializer {
-            UpdateMkViewModel(
+            UpdateMatkulViewModel(
                 createSavedStateHandle(),
-                DosenApp().containerApp.repositoryMataKuliah,
-                DosenApp().containerApp.repositoryDosen
+                sisforApp().containerApp.repositoryMataKuliah,
+                sisforApp().containerApp.repositoryDosen
             )
         }
     }
 }
 
-fun CreationExtras.DosenApp(): DosenApp =
+fun CreationExtras.sisforApp(): DosenApp =
     (this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY] as DosenApp)

@@ -11,10 +11,10 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.ucp2pam.ui.navigation.PengelolaHlmDosen
-import com.example.ucp2pam.ui.navigation.PengelolaHlmMatkul
+import com.example.ucp2pam.ui.navigation.PengelolaHalamanDosen
+import com.example.ucp2pam.ui.navigation.PengelolaHalamanMK
 import com.example.ucp2pam.ui.theme.UCP2PAMTheme
-import com.example.ucp2pam.ui.view.HlmUtama
+import com.example.ucp2pam.ui.view.HalamanUtama
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,13 +30,13 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier.padding(innerPadding) //
                     ) {
                         composable("Utama") {
-                            HlmUtama(navController)
+                            HalamanUtama(navController)
                         }
                         composable("Dosen") {
-                            PengelolaHlmDosen(navController)
+                            PengelolaHalamanDosen()
                         }
-                        composable("Matkul") {
-                            PengelolaHlmMatkul(navController)
+                        composable("MK") {
+                            PengelolaHalamanMK()
                         }
                     }
                 }

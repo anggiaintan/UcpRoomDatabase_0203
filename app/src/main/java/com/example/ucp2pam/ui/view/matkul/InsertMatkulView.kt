@@ -5,11 +5,14 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
@@ -31,16 +34,18 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.ucp2pam.R
 import com.example.ucp2pam.ui.customwidget.CustomTopAppBar
-import com.example.ucp2pam.ui.navigation.AlamatNavigasiMatkul
+import com.example.ucp2pam.ui.navigation.AlamatNavigasi
 import com.example.ucp2pam.ui.viewmodeldosen.PenyediaViewModel
 import com.example.ucp2pam.ui.viewmodelmk.MataKuliahViewModel
+import com.example.ucp2pam.ui.viewmodelmk.toMataKuliahEntity
 import com.example.ucp2pam.ui.viewmodelmk.MataKuliahViewModel.MataKuliahEvent
+import com.example.ucp2pam.ui.viewmodelmk.MataKuliahViewModel.FormErrorState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-object DestinasiInsertMatkul : AlamatNavigasiMatkul {
+object DestinasiInsertMatkul : AlamatNavigasi {
     override val route: String = "insert_matkul"
 }
 @Composable
@@ -50,12 +55,12 @@ fun InsertMatkulView(
     modifier: Modifier = Modifier,
     viewModel: MataKuliahViewModel = viewModel(factory = PenyediaViewModel.Factory)
 ) {
-    val uiState = viewModel.uiStateMataKuliah
+    val uiState = viewModel.uiStateMK
     val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
 
     LaunchedEffect(Unit) {
-        viewModel.getDosenList()
+        viewModel.getDosenList() // Ambil data dosen saat layar dimuat
     }
 
     LaunchedEffect(uiState.snackBarMessage) {
@@ -88,12 +93,12 @@ fun InsertMatkulView(
                 uiState = uiState,
                 dosenList = viewModel.dosenList,
                 onValueChange = { updateEvent ->
-                    viewModel.updateStateMataKuliah(updateEvent)
+                    viewModel.updateStateMK(updateEvent)
                 },
                 onClick = {
                     coroutineScope.launch {
-                        if (viewModel.validateFields()) {
-                            viewModel.saveDataMataKuliah()
+                        if (viewModel.validateFieldsMK()) {
+                            viewModel.saveDataMK()
                             delay(600)
                             withContext(Dispatchers.Main) {
                                 onNavigate()
@@ -111,7 +116,7 @@ fun InsertBodyMatkul(
     modifier: Modifier = Modifier,
     viewModel: MataKuliahViewModel = viewModel(factory = PenyediaViewModel.Factory),
     onValueChange: (MataKuliahEvent) -> Unit,
-    uiState: MataKuliahViewModel.MataKuliahUIState,
+    uiState: MataKuliahViewModel.MatkulUIState,
     dosenList: List<String>,
     onClick: () -> Unit
 ) {
@@ -133,7 +138,7 @@ fun InsertBodyMatkul(
                 .fillMaxWidth()
                 .padding(top = 16.dp),
             colors = ButtonDefaults.buttonColors(
-                containerColor = colorResource(id = R.color.teal_700),
+                containerColor = Color(0xFF9C9F5B),
                 contentColor = Color.White
             )
         ) {
@@ -142,16 +147,18 @@ fun InsertBodyMatkul(
     }
 }
 
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FormMatkul(
-    mataKuliahEvent: MataKuliahViewModel.MataKuliahEvent = MataKuliahViewModel.MataKuliahEvent(),
-    onValueChange: (MataKuliahViewModel.MataKuliahEvent) -> Unit,
-    errorState: MataKuliahViewModel.FormErrorState = MataKuliahViewModel.FormErrorState(),
+    mataKuliahEvent: MataKuliahEvent = MataKuliahEvent(),
+    onValueChange: (MataKuliahEvent) -> Unit,
+    errorState: FormErrorState = FormErrorState(),
     dosenList: List<String>,
     modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier.fillMaxWidth()) {
+        // Fields Kode, Nama, SKS, Semester (sama seperti sebelumnya)
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
             value = mataKuliahEvent.kode,
@@ -170,7 +177,7 @@ fun FormMatkul(
             onValueChange = {
                 onValueChange(mataKuliahEvent.copy(nama = it))
             },
-            label = { Text("Mata Kuliah") },
+            label = { Text("Nama Mata Kuliah") },
             isError = errorState.nama != null,
             placeholder = { Text("Masukkan Nama Mata Kuliah") },
         )
@@ -202,8 +209,11 @@ fun FormMatkul(
         )
         Text(text = errorState.semester ?: "", color = Color.Red)
 
+
+        // Dropdown untuk Jenis Mata Kuliah
         var expandedJenis by remember { mutableStateOf(false) }
         var selectedJenis by remember { mutableStateOf(mataKuliahEvent.jenis) }
+        val jenisOptions = listOf("Wajib","Peminatan")
 
         ExposedDropdownMenuBox(
             expanded = expandedJenis,
@@ -217,8 +227,8 @@ fun FormMatkul(
                 isError = errorState.jenis != null,
                 modifier = Modifier.menuAnchor().fillMaxWidth(),
                 trailingIcon = {
-                    androidx.compose.material3.Icon(
-                        imageVector = androidx.compose.material.icons.Icons.Default.ArrowDropDown,
+                    Icon(
+                        imageVector = Icons.Default.ArrowDropDown,
                         contentDescription = null
                     )
                 }
@@ -227,9 +237,8 @@ fun FormMatkul(
                 expanded = expandedJenis,
                 onDismissRequest = { expandedJenis = false }
             ) {
-                val jenisList = listOf("Wajib", "Peminatan") // Pilihan untuk jenis
-                jenisList.forEach { jenis ->
-                    androidx.compose.material3.DropdownMenuItem(
+                jenisOptions.forEach { jenis ->
+                    DropdownMenuItem(
                         onClick = {
                             selectedJenis = jenis
                             onValueChange(mataKuliahEvent.copy(jenis = jenis))
@@ -241,45 +250,45 @@ fun FormMatkul(
             }
         }
         Text(text = errorState.jenis ?: "", color = Color.Red)
+    }
+    // Dropdown untuk Dosen Pengampu (sama seperti sebelumnya)
+    var expandedDosen by remember { mutableStateOf(false) }
+    var selectedDosen by remember { mutableStateOf(mataKuliahEvent.dosenPengampu) }
 
-
-        var expanded by remember { mutableStateOf(false) }
-        var selectedDosen by remember { mutableStateOf(mataKuliahEvent.dosenPengampu)}
-
-        ExposedDropdownMenuBox(
-            expanded = expanded,
-            onExpandedChange = { expanded = !expanded }
+    ExposedDropdownMenuBox(
+        expanded = expandedDosen,
+        onExpandedChange = { expandedDosen = !expandedDosen }
+    ) {
+        OutlinedTextField(
+            value = selectedDosen,
+            onValueChange = { },
+            readOnly = true,
+            label = { Text("Dosen Pengampu") },
+            isError = errorState.dosenPengampu != null,
+            modifier = Modifier.menuAnchor().fillMaxWidth(),
+            trailingIcon = {
+                Icon(
+                    imageVector = Icons.Default.ArrowDropDown,
+                    contentDescription = null
+                )
+            }
+        )
+        ExposedDropdownMenu(
+            expanded = expandedDosen,
+            onDismissRequest = { expandedDosen = false }
         ) {
-            OutlinedTextField(
-                value = selectedDosen,
-                onValueChange = { },
-                readOnly = true,
-                label = { Text("Dosen Pengampu") },
-                isError = errorState.dosenPengampu != null,
-                modifier = Modifier.menuAnchor().fillMaxWidth(),
-                trailingIcon = {
-                    androidx.compose.material3.Icon(
-                        imageVector = androidx.compose.material.icons.Icons.Default.ArrowDropDown,
-                        contentDescription = null
-                    )
-                }
-            )
-            ExposedDropdownMenu(
-                expanded = expanded,
-                onDismissRequest = { expanded = false }
-            ) {
-                dosenList.forEach { dosen ->
-                    androidx.compose.material3.DropdownMenuItem(
-                        onClick = {
-                            selectedDosen = dosen
-                            onValueChange(mataKuliahEvent.copy(dosenPengampu = dosen))
-                            expanded = false
-                        },
-                        text = { Text(dosen) }
-                    )
-                }
+            dosenList.forEach { dosen ->
+                DropdownMenuItem(
+                    onClick = {
+                        selectedDosen = dosen
+                        onValueChange(mataKuliahEvent.copy(dosenPengampu = dosen))
+                        expandedDosen = false
+                    },
+                    text = { Text(dosen) }
+                )
             }
         }
-        Text(text = errorState.dosenPengampu ?: "", color = Color.Red)
     }
+    Text(text = errorState.dosenPengampu ?: "", color = Color.Red)
+
 }

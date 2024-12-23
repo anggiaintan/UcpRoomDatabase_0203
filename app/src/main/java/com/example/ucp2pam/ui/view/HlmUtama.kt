@@ -39,7 +39,7 @@ import androidx.navigation.NavController
 import com.example.ucp2pam.R
 
 @Composable
-fun HlmUtama(navController: NavController, modifier: Modifier = Modifier) {
+fun HalamanUtama(navController: NavController, modifier: Modifier = Modifier) {
     Scaffold(
         modifier = modifier,
         content = { innerPadding ->
@@ -117,7 +117,6 @@ fun HlmUtama(navController: NavController, modifier: Modifier = Modifier) {
                                 modifier = Modifier.padding(bottom = 24.dp)
                             )
 
-                            // Tombol Dosen dengan ikon
                             Button(
                                 onClick = {
                                     navController.navigate("Dosen")
@@ -134,7 +133,7 @@ fun HlmUtama(navController: NavController, modifier: Modifier = Modifier) {
                                 shape = RoundedCornerShape(12.dp)
                             ) {
                                 Row(
-                                    horizontalArrangement = Arrangement.Start,
+                                    horizontalArrangement = Arrangement.SpaceBetween,
                                     verticalAlignment = Alignment.CenterVertically,
                                     modifier = Modifier.fillMaxWidth()
                                 ) {
@@ -157,7 +156,7 @@ fun HlmUtama(navController: NavController, modifier: Modifier = Modifier) {
                             // Tombol Matakuliah dengan ikon
                             Button(
                                 onClick = {
-                                    navController.navigate("Matkul")
+                                    navController.navigate("MK")
                                 },
                                 colors = ButtonDefaults.buttonColors(
                                     containerColor = Color(0xFF9C9F5B),

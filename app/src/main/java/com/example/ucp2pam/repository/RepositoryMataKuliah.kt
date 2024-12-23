@@ -6,17 +6,17 @@ import kotlinx.coroutines.flow.Flow
 
 interface RepositoryMataKuliah {
     // Menambahkan data mata kuliah
-    suspend fun insertMataKuliah(mataKuliah: MataKuliah)
+    suspend fun insertMk(mataKuliah: MataKuliah)
 
     // Mengambil semua data mata kuliah
-    fun getAllMataKuliah(): Flow<List<MataKuliah>>
+    fun getAllMk(): Flow<List<MataKuliah>>
 
     // Mengambil data mata kuliah berdasarkan kode
-    fun getMataKuliah(kode: String): Flow<MataKuliah>
+    fun getMk(kode: String): Flow<MataKuliah>
 
     // Menghapus data mata kuliah
-    suspend fun deleteMataKuliah(mataKuliah: MataKuliah)
+    suspend fun deleteMk(mataKuliah: MataKuliah)
 
     // Memperbarui data mata kuliah
-    suspend fun updateMataKuliah(mataKuliah: MataKuliah)
+    suspend fun updateMk(mataKuliah: MataKuliah)
 }
