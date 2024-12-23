@@ -1,4 +1,4 @@
-![Screenshot (1123)](https://github.com/user-attachments/assets/fea1c9c9-4c34-443f-b735-81319f9ec1f5)Halaman utama:
+Halaman utama:
 ![Screenshot (1111)](https://github.com/user-attachments/assets/7a87221b-7991-4bdc-b379-8a6167d41fa1)
 Halaman dosen:
 ![Screenshot (1112)](https://github.com/user-attachments/assets/5edbf2ba-ec6e-4978-9942-3a792a2ee7a4)
