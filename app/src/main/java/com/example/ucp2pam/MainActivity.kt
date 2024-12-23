@@ -26,7 +26,7 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberNavController()
                     NavHost(
                         navController = navController,
-                        startDestination = "Dosen",
+                        startDestination = "Utama",
                         modifier = Modifier.padding(innerPadding) //
                     ) {
                         composable("Utama") {

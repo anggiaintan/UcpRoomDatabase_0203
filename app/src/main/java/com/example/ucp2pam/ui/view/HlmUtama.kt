@@ -76,14 +76,6 @@ fun HlmUtama(navController: NavController, modifier: Modifier = Modifier) {
                     modifier = Modifier
                         .fillMaxSize()
                 ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.umyhd),
-                        contentDescription = null,
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier
-                            .size(450.dp)
-                            .align(Alignment.Center)
-                    )
 
                     Box(
                         modifier = Modifier
