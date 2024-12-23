@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.ucp2pam.R
 import com.example.ucp2pam.ui.costumwidget.CustomTopAppBar
+import com.example.ucp2pam.ui.navigation.AlamatNavigasiMatkul
 import com.example.ucp2pam.ui.viewmodeldosen.PenyediaViewModel
 import com.example.ucp2pam.ui.viewmodelmk.MataKuliahViewModel
 import com.example.ucp2pam.ui.viewmodelmk.MataKuliahViewModel.MataKuliahEvent
@@ -38,7 +39,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-object DestinasiInsertMatkul : AlamatNavigasi {
+object DestinasiInsertMatkul : AlamatNavigasiMatkul {
     override val route: String = "insert_matkul"
 }
 @Composable
@@ -48,7 +49,7 @@ fun InsertMatkulView(
     modifier: Modifier = Modifier,
     viewModel: MataKuliahViewModel = viewModel(factory = PenyediaViewModel.Factory)
 ) {
-    val uiState = viewModel.uiStateMK
+    val uiState = viewModel.uiStateMataKuliah
     val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
 
@@ -91,7 +92,7 @@ fun InsertMatkulView(
                 onClick = {
                     coroutineScope.launch {
                         if (viewModel.validateFields()) {
-                            viewModel.saveData()
+                            viewModel.saveDataMataKuliah()
                             delay(600)
                             withContext(Dispatchers.Main) {
                                 onNavigate()
@@ -109,7 +110,7 @@ fun InsertBodyMatkul(
     modifier: Modifier = Modifier,
     viewModel: MataKuliahViewModel = viewModel(factory = PenyediaViewModel.Factory),
     onValueChange: (MataKuliahEvent) -> Unit,
-    uiState: MataKuliahViewModel.MataKuliahUiState,
+    uiState: MataKuliahViewModel.MataKuliahUIState,
     dosenList: List<String>,
     onClick: () -> Unit
 ) {
@@ -131,7 +132,7 @@ fun InsertBodyMatkul(
                 .fillMaxWidth()
                 .padding(top = 16.dp),
             colors = ButtonDefaults.buttonColors(
-                containerColor = colorResource(id = R.color.primary),
+                containerColor = colorResource(id = R.color.teal_700),
                 contentColor = Color.White
             )
         ) {
@@ -168,7 +169,7 @@ fun FormMatkul(
             onValueChange = {
                 onValueChange(mataKuliahEvent.copy(nama = it))
             },
-            label = { Text("Nama Mata Kuliah") },
+            label = { Text("Mata Kuliah") },
             isError = errorState.nama != null,
             placeholder = { Text("Masukkan Nama Mata Kuliah") },
         )
@@ -242,7 +243,7 @@ fun FormMatkul(
 
 
         var expanded by remember { mutableStateOf(false) }
-        var selectedDosen by remember { mutableStateOf(matkulEvent.dosenPengampu) }
+        var selectedDosen by remember { mutableStateOf(mataKuliahEvent.dosenPengampu)}
 
         ExposedDropdownMenuBox(
             expanded = expanded,

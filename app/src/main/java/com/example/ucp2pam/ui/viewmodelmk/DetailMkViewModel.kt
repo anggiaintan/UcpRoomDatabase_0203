@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.ucp2pam.data.entity.MataKuliah
 import com.example.ucp2pam.repository.RepositoryMataKuliah
+import com.example.ucp2pam.ui.navigation.DestinasiDetailMatkul
 import com.example.ucp2pam.ui.viewmodelmk.MataKuliahViewModel.MataKuliahEvent
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.SharingStarted
@@ -53,7 +54,7 @@ class DetailMkViewModel(
     fun deleteMatkul() {
         detailUiState.value.detailUiEvent.toMataKuliahEntity().let {
             viewModelScope.launch {
-                repositoryMataKuliah.deleteMk(it)
+                repositoryMataKuliah.deleteMataKuliah(it)
             }
         }
     }

@@ -39,7 +39,7 @@ fun UpdateMatkulView(
         viewModel.getDosenList()
     }
 
-    // Observe snackbar messages
+
     LaunchedEffect(uiState.snackBarMessage) {
         uiState.snackBarMessage?.let { message ->
             coroutineScope.launch {

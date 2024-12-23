@@ -55,9 +55,6 @@ fun HomeDosenView(
     modifier: Modifier = Modifier
 ) {
     Scaffold (
-        topBar = {
-            TopAppBar(title = "Daftar Dosen", backgroundColor = colorResource(id = R.color.white))
-        },
         floatingActionButton = {
             FloatingActionButton(
                 onClick = onAddDosen,
@@ -188,9 +185,9 @@ fun ExpandableCardDosen(
     dosen: Dosen,
     modifier: Modifier = Modifier
 ) {
-    var expanded by remember { mutableStateOf(false) }
+    var isExpanded by remember { mutableStateOf(false) }
     Card(
-        onClick = { expanded = !expanded },
+        onClick = { isExpanded = !isExpanded },
         modifier = modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp),
@@ -205,7 +202,6 @@ fun ExpandableCardDosen(
             ) {
                 Text(
                     text = dosen.nama,
-                    fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
                     fontSize = 18.sp,
                     modifier = Modifier.weight(1f),

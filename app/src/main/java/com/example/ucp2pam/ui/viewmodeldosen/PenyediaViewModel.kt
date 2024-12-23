@@ -21,15 +21,9 @@ object PenyediaViewModel {
             )
         }
         initializer {
-            DetailDosenViewModel(
-                createSavedStateHandle(),
-                DosenApp().containerApp.repositoryDosen
-            )
-        }
-        initializer {
             MataKuliahViewModel(
-                DosenApp().containerApp.RepositoryMataKuliah,
-                DosenApp().containerApp.RepositoryDosen
+                DosenApp().containerApp.repositoryMataKuliah,
+                DosenApp().containerApp.repositoryDosen
             )
         }
     }

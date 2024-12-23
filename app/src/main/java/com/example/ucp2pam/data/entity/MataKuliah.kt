@@ -9,7 +9,7 @@ data class MataKuliah(
     val kode: String,
     val nama: String,
     val sks:  String,
-    val semester: Int,
+    val semester: String,
     val jenis: String,
     val dosenPengampu: String
 )
