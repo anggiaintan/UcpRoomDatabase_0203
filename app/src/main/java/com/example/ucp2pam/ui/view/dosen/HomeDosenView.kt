@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowDropDown
@@ -99,64 +100,70 @@ fun BodyHomeDosenView(
             )
 
             Spacer(modifier = Modifier.width(8.dp))
-            Text(
-                text = "Universitas Muhammadiyah Yogyakarta",
-                color = Color.Black,
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Bold
-            )
+            Column {
+                Text(
+                    text = "Universitas Muhammadiyah Yogyakarta",
+                    color = Color.Black,
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold
+                )
+                Text(
+                    text = "Teknologi Informasi",
+                    color = Color.White, fontWeight = FontWeight.Light
+                )
+            }
         }
-
         Spacer(modifier = Modifier.padding(8.dp))
-
+Box(
+    modifier = Modifier
+        .fillMaxSize()
+        .background(
+            color = colorResource(id = R.color.teal_700),
+            shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp)
+        )
+){
         when {
-            dosenUiState.isLoading -> LoadingIndicator()
-            dosenUiState.isError -> ErrorMessage()
-            dosenUiState.listDosen.isEmpty() -> EmptyMessage()
-            else -> ListDosen(
-                listDosen = dosenUiState.listDosen,
-                modifier = Modifier.fillMaxSize()
-            )
+            dosenUiState.isLoading -> {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator()
+                }
+
+            }
+
+            dosenUiState.isError -> {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = "Terjadi kesalahan. Silakan coba lagi.",
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+            }
+
+            dosenUiState.listDosen.isEmpty() -> {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = "Tidak ada data dosen saat ini.",
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+            }
+
+            else -> {
+                ListDosen(listDosen = dosenUiState.listDosen, modifier = Modifier.fillMaxSize())
+            }
         }
-    }
-}
-
-@Composable
-fun LoadingIndicator() {
-    Box (
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        CircularProgressIndicator(color = colorResource(id = R.color.white))
-    }
-}
-
-@Composable
-fun ErrorMessage() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        Text(
-            text = "Terjadi kesalahan. Silakan coba lagi.",
-            fontSize = 16.sp,
-            fontWeight = FontWeight.Medium,
-            color = Color.Red
-        )
-    }
-}
-
-@Composable
-fun EmptyMessage() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        Text(
-            text = "Tidak ada data dosen saat ini.",
-            fontSize = 16.sp,
-            fontWeight = FontWeight.Light
-        )
+        }
     }
 }
 
@@ -175,7 +182,7 @@ fun ListDosen(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
+
 @Composable
 fun ExpandableCardDosen(
     dosen: Dosen,
